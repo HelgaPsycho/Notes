@@ -15,6 +15,21 @@ class NoteCell: UITableViewCell {
         didSet {
             guard let data = data else {return}
             titleLabel.text = data.title
+            dateLabel.text = data.dateOfLastCorrection.dayText
+            setFavoriteImage()
+            
+        }
+    }
+    
+    private func setFavoriteImage(){
+        if data!.highlights == true {
+            let image = UIImage(systemName: "heart.fill")
+            let colorConfig = UIImage.SymbolConfiguration(paletteColors: [UIColor.accentGreen])
+            favoriteView.image = image!.withConfiguration(colorConfig)
+        } else {
+            let image = UIImage(systemName: "heart")
+            let colorConfig = UIImage.SymbolConfiguration(paletteColors: [UIColor.accentGreen])
+            favoriteView.image = image!.withConfiguration(colorConfig)
         }
     }
     
@@ -23,7 +38,7 @@ class NoteCell: UITableViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.masksToBounds = true
         view.layer.cornerRadius = 10
-        view.backgroundColor = .accentWhite
+        view.backgroundColor = .accentBeige
         return view
     }()
     
@@ -35,6 +50,31 @@ class NoteCell: UITableViewCell {
         label.textAlignment = .left
         return label
     }()
+    
+    private lazy var favoriteView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .center
+        return imageView
+    }()
+    private lazy var dateLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .celTitleFont
+        label.textColor = .accentGreen
+        label.textAlignment = .right
+        
+        return label
+    }()
+    
+//    private
+//
+//    private lazy var cellTextlabel: UILabel = {
+//        let label = UILabel()
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//
+//        return label
+//    }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -54,20 +94,33 @@ class NoteCell: UITableViewCell {
     private func setupHierarhy() {
         addSubview(cellView)
         cellView.addSubview(titleLabel)
+        cellView.addSubview(favoriteView)
+        cellView.addSubview(dateLabel)
     }
     
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
-            cellView.topAnchor.constraint(equalTo: topAnchor, constant: 5),
-            cellView.rightAnchor.constraint(equalTo: rightAnchor, constant: -10),
-            cellView.leftAnchor.constraint(equalTo: leftAnchor, constant: 10),
-            cellView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
+            cellView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            cellView.rightAnchor.constraint(equalTo: rightAnchor, constant: -20),
+            cellView.leftAnchor.constraint(equalTo: leftAnchor, constant: 20),
+            cellView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
             
             titleLabel.leftAnchor.constraint(equalTo: cellView.leftAnchor, constant: 20),
             titleLabel.topAnchor.constraint(equalTo: cellView.topAnchor, constant: 10),
             titleLabel.heightAnchor.constraint(equalToConstant: 20),
-            titleLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1/2)
+            titleLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 3/4),
+            
+            favoriteView.topAnchor.constraint(equalTo: cellView.topAnchor, constant: 10),
+            favoriteView.rightAnchor.constraint(equalTo: cellView.rightAnchor, constant: -20),
+            favoriteView.heightAnchor.constraint(equalToConstant: 20),
+            favoriteView.widthAnchor.constraint(equalToConstant: 20),
+            
+            dateLabel.rightAnchor.constraint(equalTo: cellView.rightAnchor, constant: -20),
+            dateLabel.bottomAnchor.constraint(equalTo: cellView.bottomAnchor, constant: -10),
+            dateLabel.heightAnchor.constraint(equalToConstant: 20),
+            dateLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 2/4)
+            
         ])
     
     }

@@ -13,5 +13,5 @@ extension UIColor {
     static var accentGray = UIColor(named: "accentGray")
     static var accentGreen = UIColor(named: "accentGreen") ?? UIColor.green
     static var accentBeige = UIColor(named: "accentBeige")
-    static var accentWhite = UIColor(named: "accentWhite")
+    static var accentWhite = UIColor(named: "accentWhite") ?? UIColor.white
 }
