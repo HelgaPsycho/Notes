@@ -9,6 +9,8 @@ import UIKit
 
 class MainViewController: UIViewController {
     
+    public weak var delegate: MainViewControllerDelegate?
+    
     var notesArray: [NoteModel] = NoteModel.sampleData
     
     private lazy var topView: UIView = {
@@ -93,11 +95,19 @@ class MainViewController: UIViewController {
         button.setImage(image, for: .normal)
         button.heightAnchor.constraint(equalToConstant: 60).isActive = true
         button.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        button.addTarget(self, action: #selector(plusButtonPressed), for: .touchUpInside)
         return button
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        for family in UIFont.familyNames.sorted() {
+            let names = UIFont.fontNames(forFamilyName: family)
+            print("Family: \(family) Font names: \(names)")
+        }
+        
+        navigationController?.isNavigationBarHidden = true
         view.backgroundColor = .accentWhite
         tableView.dataSource = self
         tableView.delegate = self
@@ -128,7 +138,7 @@ class MainViewController: UIViewController {
             topLabel.centerXAnchor.constraint(equalTo: topView.centerXAnchor),
             topLabel.centerYAnchor.constraint(equalTo: topView.centerYAnchor),
             topLabel.heightAnchor.constraint(equalToConstant: 40),
-            topLabel.widthAnchor.constraint(equalToConstant: 300),
+            topLabel.widthAnchor.constraint(equalToConstant: 100),
             
             customSegmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             customSegmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
@@ -176,12 +186,18 @@ extension MainViewController {
         
     }
     
+    @objc func plusButtonPressed(sender: UIButton) {
+        self.delegate?.navigateToNoteEditViewController()
+    }
+    
 }
 
 extension MainViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        self.delegate?.navigateToNoteEditViewController()
         tableView.deselectRow(at: indexPath, animated: true)
+    
     }
 }
 
@@ -194,6 +210,8 @@ extension MainViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? NoteCell else {fatalError("could not dequeueReusableCell")}
                cell.data = self.notesArray[indexPath.row]
                cell.backgroundColor = .clear
+               cell.selectionStyle = .none
+        
                cell.translatesAutoresizingMaskIntoConstraints = true
                cell.heightAnchor.constraint(equalToConstant: 120).isActive = true
 

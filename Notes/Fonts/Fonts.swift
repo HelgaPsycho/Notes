@@ -12,6 +12,6 @@ extension UIFont {
     
     static var topTitleFont = UIFont(name: "HessGothicRoundNFW01-Rg", size: 30)
     static var segmentalControl = UIFont(name: "DolomanPavljenko", size: 15)
-    static var celTitleFont = UIFont(name: "DolomanPavljenko", size: 14)
-    static var text = UIFont(name: "DolomanPavljenko", size: 12)
+    static var celTitleFont = UIFont(name: "Lato-Light", size: 20)
+    static var text = UIFont(name: "Lato-Light", size: 16)
 }
