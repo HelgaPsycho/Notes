@@ -71,26 +71,40 @@ class NoteEditViewController: UIViewController {
         textField.layer.cornerRadius = 10
         textField.backgroundColor = .accentBeige
         textField.font = UIFont.celTitleFont
+     //   textField.becomeFirstResponder()
         return textField
     }()
     
-    private var textView: UITextView = {
+    private var textView: UITextView! = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.layer.cornerRadius = 10
         textView.backgroundColor = .accentBeige
         textView.font = UIFont.text
+      //  textView.becomeFirstResponder()
         return textView
     }()
+    
+    private lazy var toolBar: CustomToolBar = CustomToolBar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50), textView: textView)
+    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.accentWhite
         textView.delegate = self
         titleTextField.delegate = self
+        titleTextField.becomeFirstResponder()
+        textView.becomeFirstResponder()
+        setupElements()
         setupHierarhy()
         setupConstrains()
         // Do any additional setup after loading the view.
+    }
+    
+    private func setupElements() {
+        textView.inputAccessoryView = toolBar
+      //lblk  boldButton.addTarget(self, action: #selector(boldButtonPressed), for: .touchUpInside)
     }
     
     private func setupHierarhy() {
@@ -132,10 +146,8 @@ class NoteEditViewController: UIViewController {
             textView.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 10),
             textView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             textView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            textView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            textView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
                                     
-            
-            
         ])
     }
     
@@ -159,12 +171,20 @@ extension NoteEditViewController {
     @objc private func backButtonPressed(sender: UIButton){
         self.delegate?.navigateBackToMainController()
     }
-}
+    
+
+    }
+    
+    
+    
+
 
 extension NoteEditViewController: UITextFieldDelegate {
     
 }
 
 extension NoteEditViewController: UITextViewDelegate {
-    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        view.addSubview(toolBar)
+    }
 }

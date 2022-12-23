@@ -7,9 +7,13 @@
 		<string>Hess-Gothic-Round-NF-W01-Rg.ttf</string>
 		<string>Hess-Gothic-Round-NF-W01-Thin.ttf</string>
 		<string>DolomanPavljenko.otf</string>
-		<string>lato-light.ttf</string>
+		<string>Lato-Light.ttf</string>
+		<string>Lato-LightItalic.ttf</string>
+		<string>Lato-Regular.ttf</string>
 	</array>
 	<key>CFBundleIdentifier</key>
+	<string></string>
+	<key>CFBundleExecutable</key>
 	<string></string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>

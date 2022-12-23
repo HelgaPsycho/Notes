@@ -26,7 +26,9 @@
 		9C866D4729549BB2002498A4 /* MainViewControllerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C866D4629549BB2002498A4 /* MainViewControllerCoordinator.swift */; };
 		9C866D4929549C14002498A4 /* NoteEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C866D4829549C14002498A4 /* NoteEditViewController.swift */; };
 		9C866D4B29549C36002498A4 /* NoteEditViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C866D4A29549C36002498A4 /* NoteEditViewCoordinator.swift */; };
-		9C866D4D2954D11B002498A4 /* lato-light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9C866D4C2954D11B002498A4 /* lato-light.ttf */; };
+		9C866D522954F1F9002498A4 /* Lato-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9C866D502954F152002498A4 /* Lato-LightItalic.ttf */; };
+		9C866D532954F1FC002498A4 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9C866D512954F16A002498A4 /* Lato-Regular.ttf */; };
+		9C866D5D2955A558002498A4 /* CustomToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C866D5C2955A558002498A4 /* CustomToolBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,7 +53,9 @@
 		9C866D4629549BB2002498A4 /* MainViewControllerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControllerCoordinator.swift; sourceTree = "<group>"; };
 		9C866D4829549C14002498A4 /* NoteEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteEditViewController.swift; sourceTree = "<group>"; };
 		9C866D4A29549C36002498A4 /* NoteEditViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteEditViewCoordinator.swift; sourceTree = "<group>"; };
-		9C866D4C2954D11B002498A4 /* lato-light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "lato-light.ttf"; sourceTree = "<group>"; };
+		9C866D502954F152002498A4 /* Lato-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-LightItalic.ttf"; sourceTree = "<group>"; };
+		9C866D512954F16A002498A4 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
+		9C866D5C2955A558002498A4 /* CustomToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToolBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +119,7 @@
 				9C5F7C972953273F00DEF4E0 /* MainViewController.swift */,
 				9C5F7CB6295358DE00DEF4E0 /* NoteCell.swift */,
 				9C866D4829549C14002498A4 /* NoteEditViewController.swift */,
+				9C866D5C2955A558002498A4 /* CustomToolBar.swift */,
 			);
 			path = MainViewController;
 			sourceTree = "<group>";
@@ -123,9 +128,10 @@
 			isa = PBXGroup;
 			children = (
 				9C5F7CB929535E4400DEF4E0 /* Hess-Gothic-Round-NF-W01-Thin.ttf */,
-				9C866D4C2954D11B002498A4 /* lato-light.ttf */,
-				9C866D3F29538015002498A4 /* DolomanPavljenko.otf */,
 				9C5F7CBB29535E4F00DEF4E0 /* Hess-Gothic-Round-NF-W01-Rg.ttf */,
+				9C866D3F29538015002498A4 /* DolomanPavljenko.otf */,
+				9C866D502954F152002498A4 /* Lato-LightItalic.ttf */,
+				9C866D512954F16A002498A4 /* Lato-Regular.ttf */,
 				9C866D3D29535FDA002498A4 /* Fonts.swift */,
 			);
 			path = Fonts;
@@ -200,9 +206,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				9C5F7CA32953274100DEF4E0 /* LaunchScreen.storyboard in Resources */,
-				9C866D4D2954D11B002498A4 /* lato-light.ttf in Resources */,
 				9C5F7CA02953274100DEF4E0 /* Assets.xcassets in Resources */,
 				9C5F7CBA29535E4400DEF4E0 /* Hess-Gothic-Round-NF-W01-Thin.ttf in Resources */,
+				9C866D522954F1F9002498A4 /* Lato-LightItalic.ttf in Resources */,
+				9C866D532954F1FC002498A4 /* Lato-Regular.ttf in Resources */,
 				9C866D4029538015002498A4 /* DolomanPavljenko.otf in Resources */,
 				9C5F7CBC29535E4F00DEF4E0 /* Hess-Gothic-Round-NF-W01-Rg.ttf in Resources */,
 				9C5F7C9B2953273F00DEF4E0 /* Main.storyboard in Resources */,
@@ -220,6 +227,7 @@
 				9C5F7C982953273F00DEF4E0 /* MainViewController.swift in Sources */,
 				9C866D4429549B76002498A4 /* Coordinator.swift in Sources */,
 				9C5F7CB52953522900DEF4E0 /* Colors.swift in Sources */,
+				9C866D5D2955A558002498A4 /* CustomToolBar.swift in Sources */,
 				9C5F7CAE2953276D00DEF4E0 /* Notes.swift in Sources */,
 				9C866D4B29549C36002498A4 /* NoteEditViewCoordinator.swift in Sources */,
 				9C5F7C942953273F00DEF4E0 /* AppDelegate.swift in Sources */,
