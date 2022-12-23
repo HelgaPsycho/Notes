@@ -71,8 +71,11 @@ class NoteEditViewController: UIViewController {
         textField.layer.cornerRadius = 10
         textField.backgroundColor = .accentBeige
         textField.font = UIFont.celTitleFont
+        textField.textColor = UIColor.accentGray
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: textField.frame.height))
+        textField.leftViewMode = .always
      //   textField.becomeFirstResponder()
-        return textField
+                return textField
     }()
     
     private var textView: UITextView! = {
@@ -81,6 +84,7 @@ class NoteEditViewController: UIViewController {
         textView.layer.cornerRadius = 10
         textView.backgroundColor = .accentBeige
         textView.font = UIFont.text
+        textView.textColor = UIColor.accentGray
       //  textView.becomeFirstResponder()
         return textView
     }()

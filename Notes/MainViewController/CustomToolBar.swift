@@ -56,16 +56,20 @@ class CustomToolBar: UIToolbar {
     
     @objc private func boldButtonPressed(sender: UIBarButtonItem){
         boldButton.isSelected.toggle()
+        italicButton.isSelected = false
         if boldButton.isSelected == true {
             textAttributes[NSAttributedString.Key.font] = UIFont.boldSystemFont(ofSize: 18)
         } else {
             textAttributes[NSAttributedString.Key.font] = UIFont.systemFont(ofSize: 18)
         }
         setTextAttribute()
+        setTipingTextAttribute()
+    
     }
     
     @objc private func italicButtonPressed(sender: UIBarButtonItem){
         italicButton.isSelected.toggle()
+        boldButton.isSelected = false
         
         if italicButton.isSelected == true {
             textAttributes[NSAttributedString.Key.font] = UIFont.italicSystemFont(ofSize: 18)
@@ -73,6 +77,7 @@ class CustomToolBar: UIToolbar {
             textAttributes[NSAttributedString.Key.font] = UIFont.systemFont(ofSize: 18)
         }
         setTextAttribute()
+        setTipingTextAttribute()
     }
     
     
@@ -85,20 +90,15 @@ class CustomToolBar: UIToolbar {
         text.selectedRange = range
     }
     
-//    @objc private func buttonPressed(sender: UIButton){
-//        if sender.isSelected == false {
-//            for button in buttonsArray {
-//                button.isSelected = false
-//            }
-//            sender.isSelected = true
-//        } else {
-//            for button in buttonsArray {
-//                button.isSelected = false
-//            }
-//        }
-//
-//        chooseTextAttribute()
-//    }
+    func setTipingTextAttribute() {
+        guard let text = textView else {return}
+        let range = NSRange(location: (text.textStorage.length - 1), length: 0)
+        let string = NSMutableAttributedString(attributedString: text.attributedText)
+        string.addAttributes(textAttributes, range: NSRange(location: (text.textStorage.length - 1), length: 0))
+        text.attributedText = string
+        text.selectedRange = range
+    }
+    
     
     @objc private func colorButtonPressed(sender: UIBarButtonItem){
         sender.isSelected.toggle()
