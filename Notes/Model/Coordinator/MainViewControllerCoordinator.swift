@@ -63,5 +63,7 @@ extension MainViewCoordinator: BackToMainViewControllerDelegate {
     func navigateBackToMainController(newOrderCoordinator: NoteEditViewCoordinator) {
         navigationController.popToRootViewController(animated: true)
         childCoordinators.removeLast()
+        mainViewController?.loadData()
+        mainViewController?.tableView.reloadData()
     }
 }

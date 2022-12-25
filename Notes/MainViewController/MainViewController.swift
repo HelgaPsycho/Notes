@@ -16,6 +16,7 @@ class MainViewController: UIViewController {
     public weak var delegate: MainViewControllerDelegate?
     
     var notesArray: [Note] = []
+  //  var favoritesNotesArray: [Note] = []
     
     private lazy var topView: UIView = {
         let view = UIView()
@@ -73,7 +74,7 @@ class MainViewController: UIViewController {
         button.setTitleColor(.accentGreen, for: .normal)
         segmentedControlButtonsArray.append(button)
         button.addTarget(self, action: #selector(segmentedControlDidSelect), for: .touchUpInside)
-        button.addTarget(self, action: #selector(favoritesButtonPressed), for: .touchUpInside)
+        //button.addTarget(self, action: #selector(favoritesButtonPressed), for: .touchUpInside)
         return button
     }()
     
@@ -190,21 +191,43 @@ class MainViewController: UIViewController {
 extension MainViewController {
     
     @objc func segmentedControlDidSelect (sender: UIButton){
+//        allNotesButton.isSelected.toggle()
+//        favoritesButton.isSelected.toggle()
         for button in segmentedControlButtonsArray {
             button.isSelected = false
             button.backgroundColor = UIColor.accentBeige
         }
         sender.isSelected = true
         sender.backgroundColor = UIColor.accentGreen
+        
+        loadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+                }
+               
+        
+        tableView.reloadData()
     }
     
-    @objc func favoritesButtonPressed(sender: UIButton) {
-        loadFavoritesNotes()
-        updateTableView()
-        
-        
+    
+    func loadData() {
+        if allNotesButton.isSelected == true {
+            loadNotes()
+        } else if favoritesButton.isSelected == true {
+            loadFavoritesNotes()
+        }
     }
     
+    
+//    @objc func favoritesButtonPressed(sender: UIButton) {
+//        print("FAVORITES BUTTON PRESSED FUNC")
+//
+//     //   loadFavoritesNotes()
+//     //   updateTableViewWithFavorites()
+//
+//
+//    }
+//
     private func sortNotes (){
         
     }
@@ -264,22 +287,34 @@ extension MainViewController: UITableViewDataSource {
 
 // MARK: - COREDATA
 extension MainViewController {
+    
     func loadNotes() {
         do {
             notesArray = try dataStoreManager.obtainNotes()
+         //   filterFavoritesNotes()
         } catch {
             return
         }
     }
+    
+//    func filterFavoritesNotes() {
+//        for note in notesArray {
+//            if note.favorites == true {
+//                favoritesNotesArray.append(note)
+//            }
+//        }
+//    }
     
     func loadFavoritesNotes() {
         do {
             notesArray = try dataStoreManager.obtainFavoriteNotes()
+            print("LOAD FAVORITES NOTES FUNC")
+            print(notesArray)
         } catch {
             return
         }
     }
-    
+
 }
 
 

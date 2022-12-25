@@ -46,4 +46,13 @@ extension MainViewController: Subscriber {
         }
     }
     
+//    func updateTableViewWithFavorites () {
+//        tableView.register(NoteCell.self, forCellReuseIdentifier: "cell")
+//        loadFavoritesNotes()
+//        
+//        DispatchQueue.main.async {
+//            self.tableView.reloadData()
+//        }
+//    }
+//    
 }

@@ -70,6 +70,7 @@ class DataStoreManager {
         
         if let notes = try mainViewContext.fetch(fetchRequest) as? [Note],
            !notes.isEmpty {
+            print("FAVORITES NOTES \(notes)")
             return notes
         } else {
             throw DataStoreManagerErrors.emptyDataBase
