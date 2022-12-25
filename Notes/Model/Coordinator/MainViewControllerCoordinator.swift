@@ -19,12 +19,13 @@ class MainViewCoordinator: Coordinator {
         
     }
     
+    var mainViewController : MainViewController?
     
     func start() {
        
-        let mainViewController : MainViewController = MainViewController()
-        mainViewController.delegate = self
-        self.navigationController.viewControllers = [mainViewController]
+        mainViewController = MainViewController()
+        mainViewController!.delegate = self
+        self.navigationController.viewControllers = [mainViewController!]
         
     }
     
@@ -42,6 +43,8 @@ extension MainViewCoordinator: MainViewControllerDelegate {
        
        let noteEditViewCoordinator = NoteEditViewCoordinator(navigationController: navigationController)
        noteEditViewCoordinator.delegate = self
+        noteEditViewCoordinator.noteEditViewController.dataStoreManager = mainViewController?.dataStoreManager
+        
        childCoordinators.append(noteEditViewCoordinator)
         noteEditViewCoordinator.start()
     }
@@ -56,7 +59,7 @@ public protocol MainViewControllerDelegate: AnyObject {
 
 extension MainViewCoordinator: BackToMainViewControllerDelegate {
     
-    // Back from third page
+    // Back from second page
     func navigateBackToMainController(newOrderCoordinator: NoteEditViewCoordinator) {
         navigationController.popToRootViewController(animated: true)
         childCoordinators.removeLast()

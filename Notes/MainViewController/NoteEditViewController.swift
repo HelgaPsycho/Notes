@@ -6,8 +6,12 @@
 //
 
 import UIKit
+import CoreData
 
 class NoteEditViewController: UIViewController {
+    var container: NSPersistentContainer!
+    
+    var dataStoreManager: DataStoreManager?
     
     public weak var delegate: NoteEditControllerDelegate?
     
@@ -62,6 +66,8 @@ class NoteEditViewController: UIViewController {
         
         button.setImage(selectImage, for: .selected)
         button.setImage(normalImage, for: .normal)
+        
+        button.addTarget(self, action: #selector(favoriteButtonPressed), for: .touchUpInside)
         return button
     }()
     
@@ -95,6 +101,11 @@ class NoteEditViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        guard container != nil else {
+//                    fatalError("This view needs a persistent container.")
+           //     }
+        
         view.backgroundColor = UIColor.accentWhite
         textView.delegate = self
         titleTextField.delegate = self
@@ -173,15 +184,19 @@ class NoteEditViewController: UIViewController {
 extension NoteEditViewController {
     
     @objc private func backButtonPressed(sender: UIButton){
+        if titleTextField.text != "" || textView.text != "" {
+            saveNote()
+        }
         self.delegate?.navigateBackToMainController()
+        
+    }
+    
+    @objc private func favoriteButtonPressed(sender: UIButton){
+        favoriteButton.isSelected.toggle()
     }
     
 
     }
-    
-    
-    
-
 
 extension NoteEditViewController: UITextFieldDelegate {
     
@@ -190,5 +205,22 @@ extension NoteEditViewController: UITextFieldDelegate {
 extension NoteEditViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         view.addSubview(toolBar)
+    }
+}
+
+//MARK: - Data store Manager
+
+extension NoteEditViewController {
+    
+    func saveNote (){
+        var note = Note(context: dataStoreManager!.noteEditContext)
+        
+        note.title = titleTextField.text
+        note.text = textView.textStorage
+        note.dateOfCreation = Date.now
+        note.dateOfLastCorrection = Date.now
+        note.favorites = favoriteButton.isSelected
+        
+        dataStoreManager!.saveContext()
     }
 }

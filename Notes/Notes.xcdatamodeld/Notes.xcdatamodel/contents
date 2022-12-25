@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="false" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21512" systemVersion="21G217" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Note" representedClassName=".Note" syncable="YES">
+        <attribute name="dateOfCreation" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dateOfLastCorrection" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="favorites" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="text" attributeType="Transformable" customClassName="NSMutableAttributedString"/>
+        <attribute name="title" attributeType="String"/>
+    </entity>
 </model>

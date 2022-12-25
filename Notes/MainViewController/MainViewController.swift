@@ -6,15 +6,19 @@
 //
 
 import UIKit
+import CoreData
 
 class MainViewController: UIViewController {
     
+    var container: NSPersistentContainer!
+    var dataStoreManager = DataStoreManager()
+    
     public weak var delegate: MainViewControllerDelegate?
     
-    var notesArray: [NoteModel] = NoteModel.sampleData
+    var notesArray: [Note] = []
     
     private lazy var topView: UIView = {
-       let view = UIView()
+        let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -56,12 +60,12 @@ class MainViewController: UIViewController {
         button.addTarget(self, action: #selector(segmentedControlDidSelect), for: .touchUpInside)
         return button
     }()
-
+    
     private lazy var favoritesButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 10
-      //  button.backgroundColor = .accentGreen
+        //  button.backgroundColor = .accentGreen
         let font = UIFont.segmentalControl
         button.setTitle("Favorites", for: .normal)
         button.titleLabel?.font = font
@@ -69,16 +73,17 @@ class MainViewController: UIViewController {
         button.setTitleColor(.accentGreen, for: .normal)
         segmentedControlButtonsArray.append(button)
         button.addTarget(self, action: #selector(segmentedControlDidSelect), for: .touchUpInside)
+        button.addTarget(self, action: #selector(favoritesButtonPressed), for: .touchUpInside)
         return button
     }()
-
     
-   private lazy var tableView: UITableView = {
+    
+    lazy var tableView: UITableView = {
         let tableView = UITableView()
-       tableView.translatesAutoresizingMaskIntoConstraints = false
-       tableView.backgroundColor = .clear
-       tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
-       return tableView
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = .clear
+        tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+        return tableView
     }()
     
     
@@ -102,21 +107,32 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        for family in UIFont.familyNames.sorted() {
-            let names = UIFont.fontNames(forFamilyName: family)
-            print("Family: \(family) Font names: \(names)")
-        }
+        //        guard container != nil else {
+        //                    fatalError("This view needs a persistent container.")
+        //                }
+        
+        //        for family in UIFont.familyNames.sorted() {
+        //            let names = UIFont.fontNames(forFamilyName: family)
+        //            print("Family: \(family) Font names: \(names)")
+        //        }
         
         navigationController?.isNavigationBarHidden = true
         view.backgroundColor = .accentWhite
+        
+        dataStoreManager.subscribe(subscriber: self)
+        
+        allNotesButton.isSelected = true
+        allNotesButton.backgroundColor  = UIColor.accentGreen
+        loadNotes()
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(NoteCell.self, forCellReuseIdentifier: "cell")
-    
+        
         setupHierarhy()
         setupConstraints()
+        print("Documents Directory: ", FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last ?? "Not Found!")
     }
-  
+    
     private func setupHierarhy(){
         view.addSubview(topView)
         topView.addSubview(topLabel)
@@ -149,12 +165,12 @@ class MainViewController: UIViewController {
             allNotesButton.leftAnchor.constraint(equalTo: customSegmentedControl.leftAnchor),
             allNotesButton.centerYAnchor.constraint(equalTo: customSegmentedControl.centerYAnchor),
             allNotesButton.widthAnchor.constraint(equalTo: customSegmentedControl.widthAnchor, multiplier: 1/2),
-
+            
             favoritesButton.heightAnchor.constraint(equalToConstant: 40),
             favoritesButton.rightAnchor.constraint(equalTo: customSegmentedControl.rightAnchor),
             favoritesButton.centerYAnchor.constraint(equalTo: customSegmentedControl.centerYAnchor),
             favoritesButton.widthAnchor.constraint(equalTo: customSegmentedControl.widthAnchor, multiplier: 1/2),
-
+            
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -166,7 +182,7 @@ class MainViewController: UIViewController {
         
     }
     
-
+    
 }
 
 // MARK: - BUTTONS
@@ -180,6 +196,13 @@ extension MainViewController {
         }
         sender.isSelected = true
         sender.backgroundColor = UIColor.accentGreen
+    }
+    
+    @objc func favoritesButtonPressed(sender: UIButton) {
+        loadFavoritesNotes()
+        updateTableView()
+        
+        
     }
     
     private func sortNotes (){
@@ -197,8 +220,10 @@ extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         self.delegate?.navigateToNoteEditViewController()
         //tableView.deselectRow(at: indexPath, animated: true)
-    
+        
     }
+    
+    
 }
 
 extension MainViewController: UITableViewDataSource {
@@ -208,21 +233,53 @@ extension MainViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? NoteCell else {fatalError("could not dequeueReusableCell")}
-               cell.data = self.notesArray[indexPath.row]
-               cell.backgroundColor = .clear
-               cell.selectionStyle = .none
+        cell.data = self.notesArray[indexPath.row]
+        cell.backgroundColor = .clear
+        cell.selectionStyle = .none
         
-               cell.translatesAutoresizingMaskIntoConstraints = true
-               cell.heightAnchor.constraint(equalToConstant: 120).isActive = true
-
-                   return cell
+        cell.translatesAutoresizingMaskIntoConstraints = true
+        cell.heightAnchor.constraint(equalToConstant: 120).isActive = true
+        
+        return cell
     }
-
     
     
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete
+        {
+            let indexOfArrayElement: Int = Int(indexPath.row)
+            do { let note = try dataStoreManager.obtainNote(dateOfCreation: notesArray[indexOfArrayElement].dateOfCreation!)
+                dataStoreManager.deleteNote(note: note)
+            }
+            catch { print ("ERROR in TablieViewController with cell delete")}
+            
+            self.notesArray.remove(at: indexOfArrayElement)
+            self.tableView.deleteRows(at: [indexPath], with: .top)
+        }
+        
+        
+    }
 }
 
-
-
+// MARK: - COREDATA
+extension MainViewController {
+    func loadNotes() {
+        do {
+            notesArray = try dataStoreManager.obtainNotes()
+        } catch {
+            return
+        }
+    }
+    
+    func loadFavoritesNotes() {
+        do {
+            notesArray = try dataStoreManager.obtainFavoriteNotes()
+        } catch {
+            return
+        }
+    }
+    
+}
 
 

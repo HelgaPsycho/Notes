@@ -11,20 +11,20 @@ class NoteCell: UITableViewCell {
     
     
     
-    var data: NoteModel? {
+    var data: Note? {
         didSet {
             guard let data = data else {return}
             titleLabel.text = data.title
-            dateLabel.text = data.dateOfLastCorrection.dayText
+            dateLabel.text = data.dateOfLastCorrection?.dayText
             setFavoriteImage()
-            noteText.text = data.text
+          //  noteText.text = data.text
             
             
         }
     }
     
     private func setFavoriteImage(){
-        if data!.highlights == true {
+        if data!.favorites == true {
             let image = UIImage(systemName: "heart.fill")
             let colorConfig = UIImage.SymbolConfiguration(paletteColors: [UIColor.accentGreen])
             favoriteView.image = image!.withConfiguration(colorConfig)
@@ -80,15 +80,15 @@ class NoteCell: UITableViewCell {
     }()
 
     
-    private lazy var noteText: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .text
-        label.textColor = .accentGray
-        label.textAlignment = .left
-        label.numberOfLines = 2
-        return label
-    }()
+//    private lazy var noteText: UILabel = {
+//        let label = UILabel()
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        label.font = .text
+//        label.textColor = .accentGray
+//        label.textAlignment = .left
+//        label.numberOfLines = 2
+//        return label
+//    }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -112,7 +112,7 @@ class NoteCell: UITableViewCell {
         cellView.addSubview(titleLabel)
         cellView.addSubview(favoriteView)
         cellView.addSubview(dateLabel)
-        cellView.addSubview(noteText)
+       // cellView.addSubview(noteText)
 
     }
     
@@ -142,12 +142,12 @@ class NoteCell: UITableViewCell {
             dateLabel.bottomAnchor.constraint(equalTo: cellView.bottomAnchor, constant: -10),
             dateLabel.heightAnchor.constraint(equalToConstant: 20),
             dateLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1/4),
-            
-            noteText.leftAnchor.constraint(equalTo: cellView.leftAnchor, constant: 20),
-            noteText.rightAnchor.constraint(equalTo: dateLabel.leftAnchor, constant: -20),
-            noteText.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: 10),
-            noteText.bottomAnchor.constraint(equalTo: cellView.bottomAnchor, constant: -10)
-            
+//            
+//            noteText.leftAnchor.constraint(equalTo: cellView.leftAnchor, constant: 20),
+//            noteText.rightAnchor.constraint(equalTo: dateLabel.leftAnchor, constant: -20),
+//            noteText.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: 10),
+//            noteText.bottomAnchor.constraint(equalTo: cellView.bottomAnchor, constant: -10)
+//            
             
         ])
     

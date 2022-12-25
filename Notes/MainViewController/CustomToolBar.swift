@@ -9,7 +9,11 @@ import UIKit
 
 class CustomToolBar: UIToolbar {
     
-    lazy var buttonsArray: [UIBarButtonItem] = [boldButton, italicButton, colorButton, doneButton]
+    lazy var buttonsArray: [UIBarButtonItem] = [boldButton, italicButton, colorButton, doneButton] {
+        didSet {
+            
+        }
+    }
     
     var textAttributes: [NSAttributedString.Key : Any] = [:]
     
@@ -88,15 +92,13 @@ class CustomToolBar: UIToolbar {
         string.addAttributes(textAttributes, range: text.selectedRange)
         text.attributedText = string
         text.selectedRange = range
+        
     }
     
     func setTipingTextAttribute() {
-        guard let text = textView else {return}
-        let range = NSRange(location: (text.textStorage.length - 1), length: 0)
-        let string = NSMutableAttributedString(attributedString: text.attributedText)
-        string.addAttributes(textAttributes, range: NSRange(location: (text.textStorage.length - 1), length: 0))
-        text.attributedText = string
-        text.selectedRange = range
+
+        textView?.typingAttributes = textAttributes
+        
     }
     
     

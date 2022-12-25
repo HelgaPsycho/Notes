@@ -14,7 +14,6 @@
 		9C5F7C9E2953273F00DEF4E0 /* Notes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9C5F7C9C2953273F00DEF4E0 /* Notes.xcdatamodeld */; };
 		9C5F7CA02953274100DEF4E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C5F7C9F2953274100DEF4E0 /* Assets.xcassets */; };
 		9C5F7CA32953274100DEF4E0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C5F7CA12953274100DEF4E0 /* LaunchScreen.storyboard */; };
-		9C5F7CAE2953276D00DEF4E0 /* Notes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5F7CAD2953276D00DEF4E0 /* Notes.swift */; };
 		9C5F7CB52953522900DEF4E0 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5F7CB42953522900DEF4E0 /* Colors.swift */; };
 		9C5F7CB7295358DE00DEF4E0 /* NoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5F7CB6295358DE00DEF4E0 /* NoteCell.swift */; };
 		9C5F7CBA29535E4400DEF4E0 /* Hess-Gothic-Round-NF-W01-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9C5F7CB929535E4400DEF4E0 /* Hess-Gothic-Round-NF-W01-Thin.ttf */; };
@@ -29,6 +28,10 @@
 		9C866D522954F1F9002498A4 /* Lato-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9C866D502954F152002498A4 /* Lato-LightItalic.ttf */; };
 		9C866D532954F1FC002498A4 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9C866D512954F16A002498A4 /* Lato-Regular.ttf */; };
 		9C866D5D2955A558002498A4 /* CustomToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C866D5C2955A558002498A4 /* CustomToolBar.swift */; };
+		9C866D602956443E002498A4 /* DataStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C866D5F2956443E002498A4 /* DataStoreManager.swift */; };
+		9C866D672958534D002498A4 /* Note+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C866D652958534D002498A4 /* Note+CoreDataClass.swift */; };
+		9C866D682958534D002498A4 /* Note+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C866D662958534D002498A4 /* Note+CoreDataProperties.swift */; };
+		9C866D6A2958643A002498A4 /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C866D692958643A002498A4 /* Observer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,7 +44,6 @@
 		9C5F7C9F2953274100DEF4E0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9C5F7CA22953274100DEF4E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9C5F7CA42953274100DEF4E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9C5F7CAD2953276D00DEF4E0 /* Notes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notes.swift; sourceTree = "<group>"; };
 		9C5F7CB42953522900DEF4E0 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		9C5F7CB6295358DE00DEF4E0 /* NoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCell.swift; sourceTree = "<group>"; };
 		9C5F7CB929535E4400DEF4E0 /* Hess-Gothic-Round-NF-W01-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Hess-Gothic-Round-NF-W01-Thin.ttf"; sourceTree = "<group>"; };
@@ -56,6 +58,10 @@
 		9C866D502954F152002498A4 /* Lato-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-LightItalic.ttf"; sourceTree = "<group>"; };
 		9C866D512954F16A002498A4 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
 		9C866D5C2955A558002498A4 /* CustomToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToolBar.swift; sourceTree = "<group>"; };
+		9C866D5F2956443E002498A4 /* DataStoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStoreManager.swift; sourceTree = "<group>"; };
+		9C866D652958534D002498A4 /* Note+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataClass.swift"; sourceTree = "<group>"; };
+		9C866D662958534D002498A4 /* Note+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9C866D692958643A002498A4 /* Observer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +78,8 @@
 		9C5F7C872953273F00DEF4E0 = {
 			isa = PBXGroup;
 			children = (
+				9C866D652958534D002498A4 /* Note+CoreDataClass.swift */,
+				9C866D662958534D002498A4 /* Note+CoreDataProperties.swift */,
 				9C5F7C932953273F00DEF4E0 /* AppDelegate.swift */,
 				9C5F7C952953273F00DEF4E0 /* SceneDelegate.swift */,
 				9C5F7C922953273F00DEF4E0 /* Notes */,
@@ -106,8 +114,8 @@
 		9C5F7CAC2953275C00DEF4E0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				9C866D5E295643D5002498A4 /* CoreData */,
 				9C866D4529549B8F002498A4 /* Coordinator */,
-				9C5F7CAD2953276D00DEF4E0 /* Notes.swift */,
 				9C866D412954661E002498A4 /* Date.swift */,
 			);
 			path = Model;
@@ -145,6 +153,15 @@
 				9C866D4A29549C36002498A4 /* NoteEditViewCoordinator.swift */,
 			);
 			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		9C866D5E295643D5002498A4 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				9C866D5F2956443E002498A4 /* DataStoreManager.swift */,
+				9C866D692958643A002498A4 /* Observer.swift */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -228,13 +245,16 @@
 				9C866D4429549B76002498A4 /* Coordinator.swift in Sources */,
 				9C5F7CB52953522900DEF4E0 /* Colors.swift in Sources */,
 				9C866D5D2955A558002498A4 /* CustomToolBar.swift in Sources */,
-				9C5F7CAE2953276D00DEF4E0 /* Notes.swift in Sources */,
+				9C866D602956443E002498A4 /* DataStoreManager.swift in Sources */,
+				9C866D6A2958643A002498A4 /* Observer.swift in Sources */,
 				9C866D4B29549C36002498A4 /* NoteEditViewCoordinator.swift in Sources */,
 				9C5F7C942953273F00DEF4E0 /* AppDelegate.swift in Sources */,
 				9C866D4929549C14002498A4 /* NoteEditViewController.swift in Sources */,
+				9C866D682958534D002498A4 /* Note+CoreDataProperties.swift in Sources */,
 				9C5F7C962953273F00DEF4E0 /* SceneDelegate.swift in Sources */,
 				9C5F7CB7295358DE00DEF4E0 /* NoteCell.swift in Sources */,
 				9C866D422954661E002498A4 /* Date.swift in Sources */,
+				9C866D672958534D002498A4 /* Note+CoreDataClass.swift in Sources */,
 				9C866D4729549BB2002498A4 /* MainViewControllerCoordinator.swift in Sources */,
 				9C5F7C9E2953273F00DEF4E0 /* Notes.xcdatamodeld in Sources */,
 			);
