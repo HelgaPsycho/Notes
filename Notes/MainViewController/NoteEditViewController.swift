@@ -198,12 +198,15 @@ class NoteEditViewController: UIViewController {
 extension NoteEditViewController {
     
     @objc private func backButtonPressed(sender: UIButton){
-        if titleTextField.text != "" || textView.text != "" {
-            saveNote()
+        if selectedNote == nil {
+            createNote()
+            self.delegate?.navigateBackToMainController()
+        } else {
+            changeNote()
+            self.delegate?.navigateBackToMainController()
         }
-        self.delegate?.navigateBackToMainController()
-        
     }
+    
     
     @objc private func favoriteButtonPressed(sender: UIButton){
         favoriteButton.isSelected.toggle()
@@ -226,8 +229,8 @@ extension NoteEditViewController: UITextViewDelegate {
 
 extension NoteEditViewController {
     
-    func saveNote (){
-        var note = Note(context: dataStoreManager!.noteEditContext)
+    func createNote (){
+        let note = Note(context: dataStoreManager!.noteEditContext)
         
         note.title = titleTextField.text
         note.text = textView.textStorage
@@ -236,5 +239,20 @@ extension NoteEditViewController {
         note.favorites = favoriteButton.isSelected
         
         dataStoreManager!.saveContext()
+    }
+    
+    func changeNote() {
+        
+        guard let note = selectedNote else {
+            return
+        }
+        note.title = titleTextField.text
+        note.text = textView.textStorage
+        note.dateOfCreation = selectedNote?.dateOfCreation
+        note.dateOfLastCorrection = Date.now
+        note.favorites = favoriteButton.isSelected
+        
+        dataStoreManager!.saveContext()
+
     }
 }
