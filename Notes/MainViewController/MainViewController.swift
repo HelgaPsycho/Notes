@@ -242,15 +242,14 @@ extension MainViewController {
 
 extension MainViewController: UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        self.selectedNote = notesArray[indexPath.row]
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedNote = notesArray[indexPath.row]
         self.delegate?.navigateToNoteEditViewController()
-        //tableView.deselectRow(at: indexPath, animated: true)
+        
         
     }
-    
-    
 }
+    
 
 extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -294,7 +293,7 @@ extension MainViewController {
     func loadNotes() {
         do {
             notesArray = try dataStoreManager.obtainNotes()
-            notesArray = notesArray.sorted{$0.dateOfCreation! > $1.dateOfCreation!}
+            notesArray = notesArray.sorted{$0.dateOfLastCorrection! > $1.dateOfLastCorrection!}
          //   filterFavoritesNotes()
         } catch {
             return
@@ -312,7 +311,7 @@ extension MainViewController {
     func loadFavoritesNotes() {
         do {
             notesArray = try dataStoreManager.obtainFavoriteNotes()
-            notesArray = notesArray.sorted{$0.dateOfCreation! > $1.dateOfCreation!}
+            notesArray = notesArray.sorted{$0.dateOfLastCorrection! > $1.dateOfLastCorrection!}
             print("LOAD FAVORITES NOTES FUNC")
             print(notesArray)
         } catch {
