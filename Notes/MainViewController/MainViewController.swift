@@ -12,6 +12,7 @@ class MainViewController: UIViewController {
     
     var container: NSPersistentContainer!
     var dataStoreManager = DataStoreManager()
+    var selectedNote: Note?
     
     public weak var delegate: MainViewControllerDelegate?
     
@@ -241,6 +242,7 @@ extension MainViewController {
 extension MainViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        self.selectedNote = notesArray[indexPath.row]
         self.delegate?.navigateToNoteEditViewController()
         //tableView.deselectRow(at: indexPath, animated: true)
         
@@ -291,6 +293,7 @@ extension MainViewController {
     func loadNotes() {
         do {
             notesArray = try dataStoreManager.obtainNotes()
+            notesArray = notesArray.sorted{$0.dateOfCreation! > $1.dateOfCreation!}
          //   filterFavoritesNotes()
         } catch {
             return
@@ -308,6 +311,7 @@ extension MainViewController {
     func loadFavoritesNotes() {
         do {
             notesArray = try dataStoreManager.obtainFavoriteNotes()
+            notesArray = notesArray.sorted{$0.dateOfCreation! > $1.dateOfCreation!}
             print("LOAD FAVORITES NOTES FUNC")
             print(notesArray)
         } catch {

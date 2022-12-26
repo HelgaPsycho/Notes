@@ -9,7 +9,7 @@ import Foundation
 extension Date {
     var dayText: String {
         if Locale.current.calendar.isDateInToday(self) {
-            return NSLocalizedString("Today", comment: "Today format string")
+            return NSLocalizedString("Сегодня", comment: "Today format string")
         } else {
             return formatted(.dateTime.month().day().weekday())
         }

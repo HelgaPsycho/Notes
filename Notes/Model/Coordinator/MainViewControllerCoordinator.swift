@@ -44,6 +44,7 @@ extension MainViewCoordinator: MainViewControllerDelegate {
        let noteEditViewCoordinator = NoteEditViewCoordinator(navigationController: navigationController)
        noteEditViewCoordinator.delegate = self
         noteEditViewCoordinator.noteEditViewController.dataStoreManager = mainViewController?.dataStoreManager
+        noteEditViewCoordinator.noteEditViewController.selectedNote = mainViewController?.selectedNote
         
        childCoordinators.append(noteEditViewCoordinator)
         noteEditViewCoordinator.start()

@@ -12,6 +12,16 @@ class NoteEditViewController: UIViewController {
     var container: NSPersistentContainer!
     
     var dataStoreManager: DataStoreManager?
+    var selectedNote: Note? {
+        didSet {
+            guard var data = selectedNote else {return}
+            favoriteButton.isSelected = data.favorites
+            titleTextField.text = data.title
+            textView.attributedText = data.text
+            
+        }
+    }
+    
     
     public weak var delegate: NoteEditControllerDelegate?
     
@@ -101,6 +111,7 @@ class NoteEditViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+         loadNote()
         
 //        guard container != nil else {
 //                    fatalError("This view needs a persistent container.")
@@ -166,6 +177,9 @@ class NoteEditViewController: UIViewController {
         ])
     }
     
+    func loadNote(){
+       // guard data =
+    }
 
     /*
     // MARK: - Navigation
