@@ -207,7 +207,7 @@ extension MainViewController {
                 }
                
         
-        tableView.reloadData()
+      //  tableView.reloadData()
     }
     
     
@@ -234,6 +234,7 @@ extension MainViewController {
     }
     
     @objc func plusButtonPressed(sender: UIButton) {
+        selectedNote = nil
         self.delegate?.navigateToNoteEditViewController()
     }
     
@@ -315,7 +316,7 @@ extension MainViewController {
             print("LOAD FAVORITES NOTES FUNC")
             print(notesArray)
         } catch {
-            return
+            notesArray = []
         }
     }
 
