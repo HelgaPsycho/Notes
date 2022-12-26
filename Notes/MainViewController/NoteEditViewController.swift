@@ -230,6 +230,9 @@ extension NoteEditViewController: UITextViewDelegate {
 extension NoteEditViewController {
     
     func createNote (){
+        
+        guard (titleTextField.text != "") || (textView.textStorage.string != "") else {return}
+        
         let note = Note(context: dataStoreManager!.noteEditContext)
         
         note.title = titleTextField.text
