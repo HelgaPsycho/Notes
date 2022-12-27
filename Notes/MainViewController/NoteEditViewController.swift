@@ -113,12 +113,12 @@ class NoteEditViewController: UIViewController {
     private var textView: UITextView! = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
-    //    textView.layer.cornerRadius = 10
-    //    textView.backgroundColor = .accentBeige
         textView.backgroundColor = .clear
         textView.font = UIFont.text
         textView.textColor = UIColor.accentGray
         textView.becomeFirstResponder()
+        textView.contentInset = UIEdgeInsets(top: 0, left: 0,
+            bottom: 50, right: 0)
         return textView
     }()
     
@@ -153,9 +153,8 @@ class NoteEditViewController: UIViewController {
     
     private func setupElements() {
         textView.inputAccessoryView = toolBar
-//        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-      //lblk  boldButton.addTarget(self, action: #selector(boldButtonPressed), for: .touchUpInside)
+        registerForNotifications()
+
     }
     
     private func setupHierarhy() {
@@ -331,20 +330,31 @@ extension NoteEditViewController {
 }
 
 
-////MARK: - Keyboard
-//extension NoteEditViewController {
-//    @objc func keyboardWillShow(notification: NSNotification) {
-//        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
-//            // if keyboard size is not available for some reason, dont do anything
-//            return
-//        }
-//
-//        self.view.frame.origin.y = 0 - keyboardSize.height
-//    }
-//
-//
-//    @objc func keyboardWillHide(notification: NSNotification) {
-//      // move back the root view origin to zero
-//      self.view.frame.origin.y = 0
-//    }
-//}
+//MARK: - Keyboard
+extension NoteEditViewController {
+    
+    func registerForNotifications() {
+            NotificationCenter.default.addObserver(self, selector:#selector(NoteEditViewController.keyboardWasShown(notification:)), name:UIResponder.keyboardDidShowNotification, object:nil)
+            NotificationCenter.default.addObserver(self, selector:#selector(NoteEditViewController.keyboardWillBeHidden(notification:)), name:UIResponder.keyboardWillHideNotification, object:nil)
+        }
+    
+    @objc func keyboardWasShown(notification: NSNotification) {
+        let info = notification.userInfo
+        if let keyboardRect = info?[UIResponder.keyboardFrameBeginUserInfoKey] as? CGRect {
+     
+            let keyboardSize = keyboardRect.size
+            textView.contentInset = UIEdgeInsets(top: 0, left: 0,
+                                                 bottom: keyboardSize.height + toolBar.bounds.height, right: 0)
+            textView.scrollIndicatorInsets = textView.contentInset
+        }
+    }
+    
+    @objc func keyboardWillBeHidden(notification: NSNotification) {
+        textView.contentInset = UIEdgeInsets(top: 0, left: 0,
+            bottom: 50, right: 0)
+        textView.scrollIndicatorInsets = textView.contentInset
+    }
+     
+    
+    
+}
