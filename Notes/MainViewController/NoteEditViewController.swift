@@ -94,19 +94,42 @@ class NoteEditViewController: UIViewController {
                 return textField
     }()
     
+    private var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.backgroundColor = .clear
+        
+        return scrollView
+    }()
+    
+    private var contentView: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = 10
+        view.backgroundColor = .accentBeige
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     private var textView: UITextView! = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.layer.cornerRadius = 10
-        textView.backgroundColor = .accentBeige
+    //    textView.layer.cornerRadius = 10
+    //    textView.backgroundColor = .accentBeige
+        textView.backgroundColor = .clear
         textView.font = UIFont.text
         textView.textColor = UIColor.accentGray
-      //  textView.becomeFirstResponder()
+        textView.becomeFirstResponder()
         return textView
     }()
     
-    private lazy var toolBar: CustomToolBar = CustomToolBar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50), textView: textView)
+    private var bottomView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .systemPink
+        return view
+    }()
     
+    private lazy var toolBar: CustomToolBar = CustomToolBar(frame: CGRect(x: 0, y: view.bounds.height, width: UIScreen.main.bounds.width, height: 50), textView: textView)
 
     
     override func viewDidLoad() {
@@ -130,6 +153,8 @@ class NoteEditViewController: UIViewController {
     
     private func setupElements() {
         textView.inputAccessoryView = toolBar
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
       //lblk  boldButton.addTarget(self, action: #selector(boldButtonPressed), for: .touchUpInside)
     }
     
@@ -139,7 +164,12 @@ class NoteEditViewController: UIViewController {
         topView.addSubview(backButton)
         topView.addSubview(favoriteButton)
         view.addSubview(titleTextField)
-        view.addSubview(textView)
+      //  view.addSubview(scrollView)
+       // scrollView.addSubview(contentView)
+        view.addSubview(contentView)
+        contentView.addSubview(textView)
+        contentView.addSubview(bottomView)
+        view.addSubview(toolBar)
     }
     
     private func setupConstrains() {
@@ -169,10 +199,49 @@ class NoteEditViewController: UIViewController {
             titleTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             titleTextField.heightAnchor.constraint(equalToConstant: 40),
             
-            textView.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 10),
-            textView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            textView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            textView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+//            scrollView.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 10),
+//            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+//
+//            contentView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
+//            contentView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
+//            contentView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor, constant: 20),
+//            contentView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor, constant: -20)
+            
+            contentView.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 10),
+            contentView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
+            
+        ])
+        
+//        let contentViewCenterY = contentView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor)
+//               contentViewCenterY.priority = .defaultLow
+//
+//               let contentViewHeight = contentView.heightAnchor.constraint(greaterThanOrEqualTo: view.heightAnchor)
+//               contentViewHeight.priority = .defaultLow
+//
+//               NSLayoutConstraint.activate([
+//                   contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+//                   contentViewCenterY,
+//                   contentViewHeight])
+        
+        toolBar.layoutIfNeeded()
+            
+        NSLayoutConstraint.activate([
+            
+           textView.topAnchor.constraint(equalTo: contentView.topAnchor),
+           textView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -5),
+           textView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 5),
+          // textView.bottomAnchor.constraint(equalTo: toolBar.topAnchor, constant: -20)
+           textView.heightAnchor.constraint(equalTo: contentView.heightAnchor),
+           
+//           bottomView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+//           bottomView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+//           bottomView.heightAnchor.constraint(equalToConstant: 300)
+           
+           
                                     
         ])
     }
@@ -216,6 +285,7 @@ extension NoteEditViewController {
     }
 
 extension NoteEditViewController: UITextFieldDelegate {
+
     
 }
 
@@ -257,5 +327,24 @@ extension NoteEditViewController {
         
         dataStoreManager!.saveContext()
 
+    }
+}
+
+
+//MARK: - Keyboard
+extension NoteEditViewController {
+    @objc func keyboardWillShow(notification: NSNotification) {
+        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+            // if keyboard size is not available for some reason, dont do anything
+            return
+        }
+        
+        self.view.frame.origin.y = 0 - keyboardSize.height
+    }
+    
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+      // move back the root view origin to zero
+      self.view.frame.origin.y = 0
     }
 }

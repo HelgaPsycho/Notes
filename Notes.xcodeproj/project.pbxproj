@@ -32,6 +32,7 @@
 		9C866D672958534D002498A4 /* Note+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C866D652958534D002498A4 /* Note+CoreDataClass.swift */; };
 		9C866D682958534D002498A4 /* Note+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C866D662958534D002498A4 /* Note+CoreDataProperties.swift */; };
 		9C866D6A2958643A002498A4 /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C866D692958643A002498A4 /* Observer.swift */; };
+		9C866D6D295AF601002498A4 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9C866D6C295AF601002498A4 /* IQKeyboardManagerSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C866D6D295AF601002498A4 /* IQKeyboardManagerSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -180,6 +182,9 @@
 			dependencies = (
 			);
 			name = Notes;
+			packageProductDependencies = (
+				9C866D6C295AF601002498A4 /* IQKeyboardManagerSwift */,
+			);
 			productName = Notes;
 			productReference = 9C5F7C902953273F00DEF4E0 /* Notes.app */;
 			productType = "com.apple.product-type.application";
@@ -208,6 +213,9 @@
 				Base,
 			);
 			mainGroup = 9C5F7C872953273F00DEF4E0;
+			packageReferences = (
+				9C866D6B295AF601002498A4 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+			);
 			productRefGroup = 9C5F7C912953273F00DEF4E0 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -474,6 +482,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9C866D6B295AF601002498A4 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9C866D6C295AF601002498A4 /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9C866D6B295AF601002498A4 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		9C5F7C9C2953273F00DEF4E0 /* Notes.xcdatamodeld */ = {

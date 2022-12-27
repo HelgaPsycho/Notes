@@ -9,7 +9,7 @@ import UIKit
 
 class CustomToolBar: UIToolbar {
     
-    lazy var buttonsArray: [UIBarButtonItem] = [boldButton, italicButton, colorButton, doneButton] {
+    lazy var buttonsArray: [UIBarButtonItem] = [boldButton, italicButton, greenColorButton, redColorButton, doneButton,] {
         didSet {
             
         }
@@ -23,7 +23,9 @@ class CustomToolBar: UIToolbar {
     
     lazy var italicButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "italic")?.withConfiguration(imageConfig), style: .plain, target: self, action: #selector(italicButtonPressed))
     
-    lazy var colorButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.fill")?.withConfiguration(imageConfig), style: .plain, target: self, action: #selector(colorButtonPressed))
+    lazy var greenColorButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.fill")?.withConfiguration(imageConfig), style: .plain, target: self, action: #selector(colorButtonPressed))
+    
+    lazy var redColorButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.fill")?.withConfiguration(imageConfig), style: .plain, target: self, action: #selector(colorButtonPressed))
     
     lazy var doneButton: UIBarButtonItem = UIBarButtonItem(title: "done", style: .plain, target: self, action: #selector(doneButtonPressed))
     
@@ -55,6 +57,7 @@ class CustomToolBar: UIToolbar {
         self.setItems(buttonsArray, animated: true)
         for button in buttonsArray {
             button.tintColor = UIColor.accentGreen
+            redColorButton.tintColor = UIColor.accentRed
         }
     }
     
@@ -85,22 +88,6 @@ class CustomToolBar: UIToolbar {
     }
     
     
-    func setTextAttribute() {
-        guard let text = textView else {return}
-        let range = text.selectedRange
-        let string = NSMutableAttributedString(attributedString: text.attributedText)
-        string.addAttributes(textAttributes, range: text.selectedRange)
-        text.attributedText = string
-        text.selectedRange = range
-        
-    }
-    
-    func setTipingTextAttribute() {
-
-        textView?.typingAttributes = textAttributes
-        
-    }
-    
     
     @objc private func colorButtonPressed(sender: UIBarButtonItem){
         sender.isSelected.toggle()
@@ -118,6 +105,21 @@ class CustomToolBar: UIToolbar {
         string.addAttributes(colorAttribute as [NSAttributedString.Key : Any], range: text.selectedRange)
         text.attributedText = string
         text.selectedRange = range
+    }
+    
+    private func setTextAttribute() {
+        guard let text = textView else {return}
+        let range = text.selectedRange
+        let string = NSMutableAttributedString(attributedString: text.attributedText)
+        string.addAttributes(textAttributes, range: text.selectedRange)
+        text.attributedText = string
+        text.selectedRange = range
+        
+    }
+    
+    func setTipingTextAttribute() {
+        textView?.typingAttributes = textAttributes
+        
     }
     
     @objc func doneButtonPressed(sender: UIBarButtonItem) {
