@@ -23,9 +23,9 @@ class CustomToolBar: UIToolbar {
     
     lazy var italicButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "italic")?.withConfiguration(imageConfig), style: .plain, target: self, action: #selector(italicButtonPressed))
     
-    lazy var greenColorButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.fill")?.withConfiguration(imageConfig), style: .plain, target: self, action: #selector(colorButtonPressed))
+    lazy var greenColorButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.fill")?.withConfiguration(imageConfig), style: .plain, target: self, action: #selector(greenButtonPressed))
     
-    lazy var redColorButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.fill")?.withConfiguration(imageConfig), style: .plain, target: self, action: #selector(colorButtonPressed))
+    lazy var redColorButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.fill")?.withConfiguration(imageConfig), style: .plain, target: self, action: #selector(redButtonPressed))
     
     lazy var doneButton: UIBarButtonItem = UIBarButtonItem(title: "done", style: .plain, target: self, action: #selector(doneButtonPressed))
     
@@ -88,23 +88,28 @@ class CustomToolBar: UIToolbar {
     }
     
     
-    
-    @objc private func colorButtonPressed(sender: UIBarButtonItem){
+    @objc private func greenButtonPressed(sender: UIBarButtonItem){
         sender.isSelected.toggle()
+        redColorButton.isSelected = false
         if sender.isSelected == true {
-            setColorAttribute()
+            textAttributes[NSAttributedString.Key.foregroundColor] = UIColor.accentGreen
+        } else {
+            textAttributes[NSAttributedString.Key.foregroundColor] = UIColor.accentGray
         }
+        setTextAttribute()
+        setTipingTextAttribute()
     }
     
-    private func setColorAttribute() {
-        guard let text = textView else {return}
-        let range = text.selectedRange
-        let string = NSMutableAttributedString(attributedString: text.attributedText)
-        let colorAttribute = [
-            NSAttributedString.Key.foregroundColor: UIColor.accentRed]
-        string.addAttributes(colorAttribute as [NSAttributedString.Key : Any], range: text.selectedRange)
-        text.attributedText = string
-        text.selectedRange = range
+    @objc private func redButtonPressed(sender: UIBarButtonItem){
+        sender.isSelected.toggle()
+        greenColorButton.isSelected = false
+        if sender.isSelected == true {
+            textAttributes[NSAttributedString.Key.foregroundColor] = UIColor.accentRed
+        } else {
+            textAttributes[NSAttributedString.Key.foregroundColor] = UIColor.accentGray
+        }
+        setTextAttribute()
+        setTipingTextAttribute()
     }
     
     private func setTextAttribute() {
@@ -117,7 +122,7 @@ class CustomToolBar: UIToolbar {
         
     }
     
-    func setTipingTextAttribute() {
+    private func setTipingTextAttribute() {
         textView?.typingAttributes = textAttributes
         
     }
@@ -125,8 +130,6 @@ class CustomToolBar: UIToolbar {
     @objc func doneButtonPressed(sender: UIBarButtonItem) {
         textView?.resignFirstResponder()
     }
-    
 
-    
 }
 

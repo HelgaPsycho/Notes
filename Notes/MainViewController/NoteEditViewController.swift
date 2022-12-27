@@ -153,8 +153,8 @@ class NoteEditViewController: UIViewController {
     
     private func setupElements() {
         textView.inputAccessoryView = toolBar
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
       //lblk  boldButton.addTarget(self, action: #selector(boldButtonPressed), for: .touchUpInside)
     }
     
@@ -331,20 +331,20 @@ extension NoteEditViewController {
 }
 
 
-//MARK: - Keyboard
-extension NoteEditViewController {
-    @objc func keyboardWillShow(notification: NSNotification) {
-        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
-            // if keyboard size is not available for some reason, dont do anything
-            return
-        }
-        
-        self.view.frame.origin.y = 0 - keyboardSize.height
-    }
-    
-    
-    @objc func keyboardWillHide(notification: NSNotification) {
-      // move back the root view origin to zero
-      self.view.frame.origin.y = 0
-    }
-}
+////MARK: - Keyboard
+//extension NoteEditViewController {
+//    @objc func keyboardWillShow(notification: NSNotification) {
+//        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+//            // if keyboard size is not available for some reason, dont do anything
+//            return
+//        }
+//
+//        self.view.frame.origin.y = 0 - keyboardSize.height
+//    }
+//
+//
+//    @objc func keyboardWillHide(notification: NSNotification) {
+//      // move back the root view origin to zero
+//      self.view.frame.origin.y = 0
+//    }
+//}
