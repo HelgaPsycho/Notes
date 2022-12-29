@@ -17,8 +17,6 @@ class NoteCell: UITableViewCell {
             titleLabel.text = data.title
             dateLabel.text = data.dateOfLastCorrection?.dayText
             setFavoriteImage()
-          //  noteText.text = data.text
-            
             
         }
     }
@@ -79,17 +77,7 @@ class NoteCell: UITableViewCell {
         return label
     }()
 
-    
-//    private lazy var noteText: UILabel = {
-//        let label = UILabel()
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        label.font = .text
-//        label.textColor = .accentGray
-//        label.textAlignment = .left
-//        label.numberOfLines = 2
-//        return label
-//    }()
-    
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupHierarhy()
@@ -119,10 +107,10 @@ class NoteCell: UITableViewCell {
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
-            cellView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            cellView.topAnchor.constraint(equalTo: topAnchor, constant: 5),
             cellView.rightAnchor.constraint(equalTo: rightAnchor, constant: -20),
             cellView.leftAnchor.constraint(equalTo: leftAnchor, constant: 20),
-            cellView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
+            cellView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
             
             titleView.topAnchor.constraint(equalTo: cellView.topAnchor, constant: 10),
             titleView.leftAnchor.constraint(equalTo: cellView.leftAnchor, constant: 20),
@@ -141,13 +129,8 @@ class NoteCell: UITableViewCell {
             dateLabel.rightAnchor.constraint(equalTo: cellView.rightAnchor, constant: -20),
             dateLabel.bottomAnchor.constraint(equalTo: cellView.bottomAnchor, constant: -10),
             dateLabel.heightAnchor.constraint(equalToConstant: 20),
-            dateLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1/4),
-//            
-//            noteText.leftAnchor.constraint(equalTo: cellView.leftAnchor, constant: 20),
-//            noteText.rightAnchor.constraint(equalTo: dateLabel.leftAnchor, constant: -20),
-//            noteText.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: 10),
-//            noteText.bottomAnchor.constraint(equalTo: cellView.bottomAnchor, constant: -10)
-//            
+            dateLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 2/3),
+     
             
         ])
     

@@ -17,7 +17,6 @@ class MainViewController: UIViewController {
     public weak var delegate: MainViewControllerDelegate?
     
     var notesArray: [Note] = []
-  //  var favoritesNotesArray: [Note] = []
     
     private lazy var topView: UIView = {
         let view = UIView()
@@ -75,7 +74,7 @@ class MainViewController: UIViewController {
         button.setTitleColor(.accentGreen, for: .normal)
         segmentedControlButtonsArray.append(button)
         button.addTarget(self, action: #selector(segmentedControlDidSelect), for: .touchUpInside)
-        //button.addTarget(self, action: #selector(favoritesButtonPressed), for: .touchUpInside)
+        button.addTarget(self, action: #selector(favoritesButtonPressed), for: .touchUpInside)
         return button
     }()
     
@@ -207,7 +206,7 @@ extension MainViewController {
                 }
                
         
-      //  tableView.reloadData()
+     
     }
     
     
@@ -218,17 +217,7 @@ extension MainViewController {
             loadFavoritesNotes()
         }
     }
-    
-    
-//    @objc func favoritesButtonPressed(sender: UIButton) {
-//        print("FAVORITES BUTTON PRESSED FUNC")
-//
-//     //   loadFavoritesNotes()
-//     //   updateTableViewWithFavorites()
-//
-//
-//    }
-//
+
     private func sortNotes (){
         
     }
@@ -236,6 +225,10 @@ extension MainViewController {
     @objc func plusButtonPressed(sender: UIButton) {
         selectedNote = nil
         self.delegate?.navigateToNoteEditViewController()
+    }
+    
+    @objc func favoritesButtonPressed(){
+        
     }
     
 }
@@ -263,7 +256,7 @@ extension MainViewController: UITableViewDataSource {
         cell.selectionStyle = .none
         
         cell.translatesAutoresizingMaskIntoConstraints = true
-        cell.heightAnchor.constraint(equalToConstant: 120).isActive = true
+        cell.heightAnchor.constraint(equalToConstant: 100).isActive = true
         
         return cell
     }
