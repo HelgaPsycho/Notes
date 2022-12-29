@@ -110,6 +110,7 @@
 				9C5F7CAC2953275C00DEF4E0 /* Model */,
 				9C5F7C9F2953274100DEF4E0 /* Assets.xcassets */,
 				9C5F7CB42953522900DEF4E0 /* Colors.swift */,
+				9C866D74295D960C002498A4 /* Images */,
 				9C5F7CB829535E0C00DEF4E0 /* Fonts */,
 				9C5F7CA12953274100DEF4E0 /* LaunchScreen.storyboard */,
 				9C5F7CA42953274100DEF4E0 /* Info.plist */,
@@ -124,7 +125,6 @@
 				9C866D5E295643D5002498A4 /* CoreData */,
 				9C866D4529549B8F002498A4 /* Coordinator */,
 				9C866D412954661E002498A4 /* Date.swift */,
-				9C866D74295D960C002498A4 /* Images */,
 			);
 			path = Model;
 			sourceTree = "<group>";
